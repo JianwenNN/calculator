@@ -29,3 +29,16 @@ function operate(a, str, b) {
             divide(a, b);
     }
 }
+let display = document.querySelector('#display');
+const numbers = Array.from(document.querySelectorAll('.number'));
+numbers.forEach(number => number.addEventListener('click', showNumber));
+numbers.forEach(number => number.addEventListener('click', storeNumber));
+
+function showNumber(e) {
+    if (display.innerHTML.charAt(0) === '0' && display.innerHTML.length >= 1) {
+        display.innerHTML = display.innerHTML.substring(1);
+    }
+    display.innerHTML += e.target.textContent;
+}
+
+function storeNumber(e) {}
