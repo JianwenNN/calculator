@@ -30,15 +30,20 @@ function operate(a, str, b) {
     }
 }
 let display = document.querySelector('#display');
+let storedValues = [];
 const numbers = Array.from(document.querySelectorAll('.number'));
+const operators = Array.from(document.querySelectorAll('.operator'));
 numbers.forEach(number => number.addEventListener('click', showNumber));
-numbers.forEach(number => number.addEventListener('click', storeNumber));
+operators.forEach(operator => operator.addEventListener('click', storeNumber));
 
 function showNumber(e) {
-    if (display.innerHTML.charAt(0) === '0' && display.innerHTML.length >= 1) {
+    if (display.innerHTML.charAt(0) === '0') {
         display.innerHTML = display.innerHTML.substring(1);
     }
     display.innerHTML += e.target.textContent;
 }
 
-function storeNumber(e) {}
+function storeNumber() {
+    storedValues.push(+display.innerHTML);
+    console.log(storedValues);
+}
