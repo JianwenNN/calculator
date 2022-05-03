@@ -13,12 +13,22 @@ function operate(a, str, b) {
             return a / b;
     }
 }
+
+const precedence = {
+    '+': 1,
+    '-': 1,
+    '*': 2,
+    '/': 2,
+}
 let display = document.querySelector('#display');
 let storedValues = [];
 let storedOperators = [];
 let tempArray = [];
 let tempNumber = '0';
 let result;
+let a = storedValues[0];
+let b = storedValues[1];
+let c = storedValues[2];
 
 const numbers = Array.from(document.querySelectorAll('.number'));
 const operators = Array.from(document.querySelectorAll('.operator'));
@@ -59,6 +69,7 @@ function isFirstOperator(arr) {
     return arr.length <= 1;
 }
 
+
 function Calculate(e) {
     if (isFirstOperator(storedValues)) return;
     else if (storedOperators[storedOperators.length - 1] == '*' || storedOperators[storedOperators.length - 1] == '/' ) {
@@ -67,23 +78,3 @@ function Calculate(e) {
     }
 }
 
-//display the new number being entered
-//When a number is clicked, the following happens
-// - display it on the screen
-// - store it
-
-
-//When an operator is clicked the following happens
-// - if it is the first operator that's entered, then continue to the next number, if it is multiply or divide, give the result right after the second number is entered
-function isOnlyNumber(str) {
-    return Array.from(str).every(char => '0123456789.'.includes(char));
-}
-
-// - if it is the second or more operator that's entered, determine if it has higher precedence than the previous one:
-//    - if same precedence, then calculate the previous operation and display it on the screen
-
-
-function compareOperator(str) {
-    return str == ''
-}
-//    - if it has higher precedence than previous, then wait for the next number and store it
