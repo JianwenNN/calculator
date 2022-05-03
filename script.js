@@ -1,32 +1,16 @@
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
 function operate(a, str, b) {
     switch(str) {
         case '+':
-            add(a, b);
+            return a + b;
             break;
         case '-':
-            subtract(a, b);
+            return a - b;
             break;
         case '*':
-            multiply(a, b);
+            return a * b;
             break;
         case '/':
-            divide(a, b);
+            return a / b;
     }
 }
 let display = document.querySelector('#display');
@@ -34,6 +18,7 @@ let storedValues = [];
 let storedOperators = [];
 let tempArray = [];
 let tempNumber = '0';
+let result;
 
 const numbers = Array.from(document.querySelectorAll('.number'));
 const operators = Array.from(document.querySelectorAll('.operator'));
@@ -71,13 +56,17 @@ function storeToPerm() {
 }
 
 function isFirstOperator(arr) {
-    console.log(arr.length <= 1);
+    return arr.length <= 1;
 }
 
 function Calculate(e) {
     if (isFirstOperator(storedValues)) return;
-
+    else if (storedOperators[storedOperators.length - 1] == '*' || storedOperators[storedOperators.length - 1] == '/' ) {
+        result = operate(+storedValues[0], storedOperators[storedOperators.length - 1], +storedValues[1]);
+        display.innerHTML = result;
+    }
 }
+
 //display the new number being entered
 //When a number is clicked, the following happens
 // - display it on the screen
