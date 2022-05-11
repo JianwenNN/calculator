@@ -36,14 +36,17 @@ const operators = Array.from(document.querySelectorAll('.operator'));
 const equal = document.querySelector('#equal');
 const clear = document.querySelector('#clear');
 const backspace = document.querySelector('#backspace');
+const buttons = Array.from(document.querySelectorAll('.button'));
 
 numbers.forEach(number => number.addEventListener('click', storeToTemp));
 numbers.forEach(number => number.addEventListener('click', showNumber));
 
 operators.forEach(operator => operator.addEventListener('click', calcOp));
+buttons.forEach(button => button.addEventListener('transitionend', removeTransition));
 equal.addEventListener('click', calcEqual);
 clear.addEventListener('click', clearAll);
 backspace.addEventListener('click', deleteLast);
+window.addEventListener('keydown', getKey);
 
 
 function showNumber() {
@@ -52,8 +55,8 @@ function showNumber() {
 
 function storeToTemp(e) {
     if (tempArray.includes('.') && e.target.innerHTML == '.') return;
-    tempArray.push(e.target.textContent);
-    lastEntry.push(e.target.textContent);
+    tempArray.push(e.target.innerHTML);
+    lastEntry.push(e.target.innerHTML);
     if (tempArray[0] === '0' && tempArray.length > 1) tempArray.shift(); 
     tempNumber = tempArray.join('');
 }
@@ -170,4 +173,31 @@ function deleteLast() {
     tempNumber = tempArray.join('');
     if (tempArray.length === 0) tempNumber = '0';
     display.innerHTML = tempNumber;
+}
+
+function getKey(e) {
+    const key = document.querySelector(`div[data-key = '${e.keyCode}']`);
+    key.classList.add('keydown');
+    let keyObj = new KeyObject(key);
+    if ('0123456789'.includes(key.innerHTML)) {
+        storeToTemp(keyObj);
+        showNumber();
+    }
+    else if ('+-*/'.includes(key.innerHTML)) {
+        calcOp(keyObj);
+    }
+    else if (e.keyCode == 13) {
+        calcEqual();
+    }
+    else if (key.id == 'backspace') {
+        deleteLast();
+    }
+}
+
+function removeTransition(e) {
+    e.target.classList.remove('keydown');
+}
+
+function KeyObject(target) {
+    this.target = target;
 }
