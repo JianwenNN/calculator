@@ -1,16 +1,17 @@
 body {
     display: flex;
     flex-direction: column;
-    min-width: 200px;
-    max-width: 500px;
+    min-width: 100px;
+    max-width: 300px;
 }
 
 #display {
     border-radius: 8px;
-    background-color: rgb(178, 213, 245);
+    background-color: #b8dbfd;
     padding: 10px;    
     text-align: end;
     font-weight: bold;
+    font-size: large;
 }
 
 .keyboard {
@@ -19,7 +20,7 @@ body {
 
 .button {
     border-radius: 8px;
-    background-color: rgb(103, 167, 80);
+    background-color: rgb(207, 144, 230);
     aspect-ratio: 1/1;
     min-width: 30px;
     padding: 10px;

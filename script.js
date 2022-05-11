@@ -51,9 +51,10 @@ function showNumber() {
 }
 
 function storeToTemp(e) {
+    if (tempArray.includes('.') && e.target.innerHTML == '.') return;
     tempArray.push(e.target.textContent);
     lastEntry.push(e.target.textContent);
-    if (tempArray[0] === '0' && tempArray.length > 1) tempArray.shift();
+    if (tempArray[0] === '0' && tempArray.length > 1) tempArray.shift(); 
     tempNumber = tempArray.join('');
 }
 
@@ -149,6 +150,7 @@ function calcEqual() {
         calcParas = [];
     }
     lastEntry = [];
+    storedValues.push(result);
 }
 
 function clearAll() {
