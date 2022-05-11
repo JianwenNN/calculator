@@ -16,6 +16,8 @@ body {
 
 .keyboard {
     display: flex;
+    flex-direction: column;
+    margin: 0;
 }
 
 .button {
@@ -25,16 +27,37 @@ body {
     min-width: 30px;
     padding: 10px;
     text-align: center;
+    flex: 1;
+}
+
+.button:hover {
+    background-color: rgb(237, 190, 254);
 }
 
 .number-container {
     display: flex;
-    flex-wrap: wrap;
-    flex: 3;
     margin: 0;
+    flex-direction: column;
+    flex: 3;
 }
 
-.operator-container {
-    flex: 1;
+.operator-container {   
     margin: 0;
+    flex: 1;
+}
+
+.row {
+    display: flex;
+}
+
+.upper {
+    display: flex;
+}
+
+.lower {
+    display: flex;
+}
+
+#clear, #backspace {
+    aspect-ratio: 3/1;
 }
