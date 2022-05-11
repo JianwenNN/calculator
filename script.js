@@ -82,8 +82,18 @@ function isLastEntryNum(arr) {
     return '0123456789.'.includes(arr[arr.length -1]);
 }
 //if an operator is pressed, the following happens
+function calculateFormer() {
+    calcParas = storedValues.splice(0, 2);
+    calcParas.push(storedOperators.shift());
+    result = operate(...calcParas);   
+}
 
-
+function calculateLatter() {
+    calcParas = storedValues.splice(1, 2);
+    calcParas.push(storedOperators[1]);
+    storedOperators.splice(1, 1)
+    result = operate(...calcParas);    
+}
 function calcOp(e) {
 //store the previously entered number to perm (storedValues)
     storeToPerm();
@@ -94,9 +104,7 @@ function calcOp(e) {
 
     else if (storedValues.length == 2) {
        if (precedence[storedOperators[1]] <= precedence[storedOperators[0]]) {
-        calcParas = storedValues.splice(0, 2);
-        calcParas.push(storedOperators.shift());
-        result = operate(...calcParas);
+        calculateFormer();
         storedValues.splice(0, 0, result);
         display.innerHTML = result;
         calcParas = [];
@@ -106,23 +114,15 @@ function calcOp(e) {
     //When calculate from left to right
     else if (storedValues.length == 3) {
         if (precedence[storedOperators[2]] == precedence[storedOperators[1]]) {
-            calcParas = storedValues.splice(1, 2);
-            calcParas.push(storedOperators[1]);
-            storedOperators.splice(1, 1)
-            result = operate(...calcParas);
+            calculateLatter();
             storedValues.push(result);
             display.innerHTML = result;
             calcParas = [];    
         }
         else if (precedence[storedOperators[2]] < precedence[storedOperators[1]]) {
-            calcParas = storedValues.splice(1, 2);
-            calcParas.push(storedOperators[1]);
-            storedOperators.splice(1, 1);
-            result = operate(...calcParas);
+            calculateLatter();
             storedValues.push(result);
-            calcParas = storedValues.splice(0, 2);
-            calcParas.push(storedOperators.shift());
-            result = operate(...calcParas);
+            calculateFormer();
             storedValues.unshift(result);
             display.innerHTML = result;
             calcParas = [];
@@ -137,21 +137,14 @@ function calcEqual() {
         return;
     }
     else if (storedValues.length == 2) {
-         calcParas = storedValues.splice(0, 2);
-         calcParas.push(storedOperators.pop());
-         result = operate(...calcParas);
+         calculateFormer();
          display.innerHTML = result;
          calcParas = [];  
      }
     else if (storedValues.length == 3) {
-        calcParas = storedValues.splice(1, 2);
-        calcParas.push(storedOperators[1]);
-        storedOperators.splice(1, 1);
-        result = operate(...calcParas);
+        calculateLatter();
         storedValues.push(result);
-        calcParas = storedValues.splice(0, 2);
-        calcParas.push(storedOperators.shift());
-        result = operate(...calcParas);
+        calculateFormer();
         display.innerHTML = result;
         calcParas = [];
     }
