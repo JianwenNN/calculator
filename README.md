@@ -8,4 +8,5 @@ Features:<br>
 4. Display "Infinity" if the user tries to divide by 0.<br>
 5. A . button allows user to put in decimals. Won't let user to input more than one .<br>
 6. A “backspace” button to allow user to undo if they click the wrong number.<br>
+7. If the user clicked two operators in a row, the latter operator will override the previous operator.<br>
 https://jianwennn.github.io/calculator/
