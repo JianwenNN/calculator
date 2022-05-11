@@ -55,6 +55,7 @@ function showNumber() {
 
 function storeToTemp(e) {
     if (tempArray.includes('.') && e.target.innerHTML == '.') return;
+    else if (tempArray.length > 16) return;
     tempArray.push(e.target.innerHTML);
     lastEntry.push(e.target.innerHTML);
     if (tempArray[0] === '0' && tempArray.length > 1) tempArray.shift(); 
